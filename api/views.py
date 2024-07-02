@@ -16,10 +16,9 @@ def greetings(request):
         ip = request.META.get("HTTP_X_FORWARDED_FOR")
 
     city_response = requests.get(
-        f"https://ipinfo.io/json?token={os.getenv('IPINFO_TOKEN')}"
+        f"https://ipinfo.io/{ip}/json?token={os.getenv('IPINFO_TOKEN')}"
     )
     city = city_response.json().get("city")
-    ip = city_response.json().get("ip")
 
     temp_response = requests.get(
         f"http://api.weatherapi.com/v1/current.json?q={city}&key={os.getenv('WEATHERAPI_KEY')}"
